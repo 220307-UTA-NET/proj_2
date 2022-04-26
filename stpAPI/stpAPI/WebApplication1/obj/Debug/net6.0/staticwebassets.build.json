@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "I3Gs76eHjFGxHdHyB0pSKIf6Vr865LRLCTZAYW+8rTI=",
+  "Source": "stpAPP.API",
+  "BasePath": "_content/stpAPP.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,38 @@
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+string connectionString = builder.Configuration["connectionString"];
+
+/*
+
+
+Debug = string connectionString = builder.Configuration["connectionString"];
+
+Release = string connectionString = builder.Configuration.GetConnectionString("RPS-DB-Connection"); if release v2 does not work
+
+Release v2 (works) after publish to azure = string connectionString = builder.Configuration.GetConnectionString("connectionString");
+
+*/
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
