@@ -619,6 +619,20 @@
             "rid": "win"
           }
         }
+      },
+      "stpAPP.BusinessLogic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.4",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.4"
+        },
+        "compile": {
+          "bin/placeholder/stpAPP.BusinessLogic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/stpAPP.BusinessLogic.dll": {}
+        }
       }
     }
   },
@@ -1814,13 +1828,19 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "stpAPP.BusinessLogic/1.0.0": {
+      "type": "project",
+      "path": "../stpApp.BusinessLogic/stpAPP.BusinessLogic.csproj",
+      "msbuildProject": "../stpApp.BusinessLogic/stpAPP.BusinessLogic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.EntityFrameworkCore >= 6.0.4",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.4",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.4"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.4",
+      "stpAPP.BusinessLogic >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1830,11 +1850,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj",
+      "projectUniqueName": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj",
       "projectName": "stpAPP.DataLogic",
-      "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj",
+      "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj",
       "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpAPP.DataLogic\\obj\\",
+      "outputPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPP.DataLogic\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1854,7 +1874,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

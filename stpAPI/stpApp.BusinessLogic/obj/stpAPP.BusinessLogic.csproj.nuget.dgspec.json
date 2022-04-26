@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {}
+    "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {
+    "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj",
+        "projectUniqueName": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj",
         "projectName": "stpAPP.BusinessLogic",
-        "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj",
+        "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj",
         "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\obj\\",
+        "outputPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

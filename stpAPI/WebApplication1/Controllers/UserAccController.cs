@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using stpApp.BusinessLogic;
+using stpAPP.DataLogic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -6,13 +8,23 @@ namespace stpAPP.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UserAccController : ControllerBase
     {
+        private readonly IRepository _repository;
+        private readonly ILogger<UserAccController> _logger;
+
+        public UserAccController(ILogger<UserAccController> logger, IRepository repository)
+        {
+            _logger = logger;
+            _repository = repository;
+        }
+
+
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<UserAcc> GetAllUsers()
         {
-            return new string[] { "value1", "value2" };
+            return _repository.GetAllUserAcc();
         }
 
         // GET api/<ValuesController>/5

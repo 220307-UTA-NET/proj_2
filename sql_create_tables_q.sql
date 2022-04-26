@@ -1,7 +1,7 @@
 -- might want to add ipaddress to this table later, users could exploit by using the guest table by logging out
 -- and logging into user to change a pixel again
 
-CREATE TABLE User (
+CREATE TABLE UserAcc (
   id INT IDENTITY(1,1) PRIMARY KEY,
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
@@ -15,7 +15,9 @@ CREATE TABLE User (
 CREATE TABLE Guest (
   id INT IDENTITY(1,1) PRIMARY KEY,
   lastPlace DateTime Null,
-  ipAddress varchar(255) NOT NULL
+  ipAddress varchar(255) NOT NULL,
+  created_at DATETIME DEFAULT SYSDATETIME(),
+  updated_at DATETIME DEFAULT SYSDATETIME(),
 );
 
 -- Column is a reserved keyword hence 'Col'

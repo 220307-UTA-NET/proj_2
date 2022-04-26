@@ -710,7 +710,8 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.4"
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.4",
+          "stpAPP.BusinessLogic": "1.0.0"
         },
         "compile": {
           "bin/placeholder/stpAPP.DataLogic.dll": {}
@@ -2067,11 +2068,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\WebApplication1\\stpAPP.API.csproj",
+      "projectUniqueName": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\WebApplication1\\stpAPP.API.csproj",
       "projectName": "stpAPP.API",
-      "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\WebApplication1\\stpAPP.API.csproj",
+      "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\WebApplication1\\stpAPP.API.csproj",
       "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\WebApplication1\\obj\\",
+      "outputPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2092,11 +2093,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj"
+            "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpApp.BusinessLogic\\stpAPP.BusinessLogic.csproj"
             },
-            "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj": {
-              "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj"
+            "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj": {
+              "projectPath": "C:\\Users\\root\\Desktop\\Proj_2\\proj_2\\stpAPI\\stpAPP.DataLogic\\stpAPP.DataLogic.csproj"
             }
           }
         }

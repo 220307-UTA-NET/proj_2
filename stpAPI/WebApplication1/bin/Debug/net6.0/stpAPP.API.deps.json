@@ -490,7 +490,8 @@
       "stpAPP.DataLogic/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.4"
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.4",
+          "stpAPP.BusinessLogic": "1.0.0"
         },
         "runtime": {
           "stpAPP.DataLogic.dll": {}
