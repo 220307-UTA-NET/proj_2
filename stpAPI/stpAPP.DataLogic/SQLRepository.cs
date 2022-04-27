@@ -16,7 +16,7 @@ namespace stpAPP.DataLogic
         }
         public UserAcc GetUserById(int id)
         {
-            return _context.UserAccs.Find(id); // fix code smell
+            return _context.UserAccs.Find(id); // fix code smell AND CHANGE!!!
         }
         public UserAcc GetUserByUsername(string username)
         {
