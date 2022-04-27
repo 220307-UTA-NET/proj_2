@@ -16,11 +16,11 @@ namespace stpAPP.DataLogic
         }
         public UserAcc GetUserById(int id)
         {
-            return _context.UserAccs.Find(id);
+            return _context.UserAccs.Find(id); // fix code smell
         }
         public UserAcc GetUserByUsername(string username)
         {
-            return _context.UserAccs.FirstOrDefault(x => x.Username == username);
+            return _context.UserAccs.FirstOrDefault(x => x.Username == username); // add exception handling for a probable null value
         }
         public bool CheckUsername(string username)
         {
