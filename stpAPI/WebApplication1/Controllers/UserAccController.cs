@@ -29,9 +29,9 @@ namespace stpAPP.API.Controllers
 
         // GET api/<UserAccController>/5
         [HttpGet("{id}")]
-        public UserAcc GetOneUser(int id)
+        public UserAcc GetUserById(int id)
         {
-            return _repository.GetOneUser(id);
+            return _repository.GetUserById(id);
         }
 
         // POST api/<UserAccController>
@@ -41,16 +41,20 @@ namespace stpAPP.API.Controllers
             _repository.InsertOneUser(user);
         }
 
-        // PUT api/<UserAccController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<UserAccController>/5 (id)
+        // OR
+        // PUT api/<UserAccController>/brian120496 (username)
+        [HttpPut("{input}")]
+        public void Put(string input, [FromBody] UserAcc changes)
         {
+            _repository.UpdateOneUser(changes, input);
         }
 
         // DELETE api/<UserAccController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _repository.DeleteUser(id);
         }
     }
 }

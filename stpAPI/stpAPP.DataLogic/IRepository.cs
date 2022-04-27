@@ -46,8 +46,18 @@ namespace stpAPP.DataLogic
         /* 
             <summary>
 
+        Delete a user by their id
+        
+            </summary>
+         */
+        void DeleteUser(int id);
+        /* 
+            <summary>
+
         Insert the user's id to check if they can change a color. Check if the DateTime on
         the lastPlace is null. If null, then a check is done if request greater than 5 minutes.
+
+        This method is to be nested in a Pixel method to change a color.
         
             </summary>
          */

@@ -85,6 +85,13 @@ namespace stpAPP.DataLogic
                 }
             }
         }
+        public void DeleteUser(int id)
+        {
+            UserAcc user = GetUserById(id);
+            _context.Remove(user);
+            _context.SaveChanges();
+        }
+
         #endregion
         #region // Pixel Methods
         public List<Pixel> GetAllPixels()
