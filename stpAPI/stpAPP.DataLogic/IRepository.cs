@@ -13,6 +13,7 @@ namespace stpAPP.DataLogic
             </summary>
         */
         List<UserAcc> GetAllUserAcc();
+        // need summary
         UserAcc GetUserById(int id);
         /* 
             <summary>

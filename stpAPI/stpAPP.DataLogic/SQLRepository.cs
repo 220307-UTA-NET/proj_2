@@ -54,7 +54,7 @@ namespace stpAPP.DataLogic
         }
         public bool InsertOneUser(UserAcc user)
         {
-            if(CheckUsername(user.Username))
+            if(!CheckUsername(user.Username)) // if username is not in database, allow new user creation
                 {
                 _context.Add(user);
                 _context.SaveChanges();
