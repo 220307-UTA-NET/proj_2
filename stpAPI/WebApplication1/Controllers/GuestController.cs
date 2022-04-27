@@ -8,45 +8,45 @@ namespace stpAPP.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserAccController : ControllerBase
+    public class GuestController : ControllerBase
     {
         private readonly IRepository _repository;
         private readonly ILogger<UserAccController> _logger;
 
-        public UserAccController(ILogger<UserAccController> logger, IRepository repository)
+        public GuestController(ILogger<UserAccController> logger, IRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
 
 
-        // GET: api/<UserAccController>
+        // GET: api/<ValuesController>
         [HttpGet]
-        public List<UserAcc> GetAllUsers()
+        public List<Guest> GetAllGuests()
         {
-            return _repository.GetAllUserAcc();
+            return _repository.GetAllGuests();
         }
 
-        // GET api/<UserAccController>/5
+        // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public UserAcc GetOneUser(int id)
+        public string Get(int id)
         {
-            return _repository.GetOneUser(id);
+            return "value";
         }
 
-        // POST api/<UserAccController>
+        // POST api/<ValuesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<UserAccController>/5
+        // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<UserAccController>/5
+        // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

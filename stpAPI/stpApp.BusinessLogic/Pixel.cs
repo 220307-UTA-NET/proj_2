@@ -4,6 +4,7 @@ namespace stpApp.BusinessLogic
 {
     public partial class Pixel
     {
+        [Key]
         public int Id { get; set; }
         public short Row { get; set; }
         public short Col { get; set; }
