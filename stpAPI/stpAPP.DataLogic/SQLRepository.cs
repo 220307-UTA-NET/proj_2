@@ -14,31 +14,77 @@ namespace stpAPP.DataLogic
         {
             return _context.UserAccs.ToList();
         }
-        public UserAcc GetOneUser(int id)
+        public UserAcc GetUserById(int id)
         {
             return _context.UserAccs.Find(id);
         }
-        public void UpdateOneUser(UserAcc changes, int id)
+        public UserAcc GetUserByUsername(string username)
         {
-            UserAcc RetrievedUser = GetOneUser(id);
+            return _context.UserAccs.FirstOrDefault(x => x.Username == username);
+        }
+        public bool CheckUsername(string username)
+        {
+            UserAcc? user = _context.UserAccs.FirstOrDefault(u => u.Username == username);
+            if(user != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void UpdateOneUser(UserAcc changes, string input)
+        {
+            int intTest;
+            UserAcc RetrievedUser = new UserAcc();
+            if(Int32.TryParse(input, out intTest))
+            {
+                RetrievedUser = GetUserById(Int32.Parse(input));
+            }
+            else
+            {
+                RetrievedUser = GetUserByUsername(input);
+            }
             RetrievedUser.Username = changes.Username;
             RetrievedUser.Password = changes.Password;
             RetrievedUser.LastPlace = changes.LastPlace;
             RetrievedUser.UpdatedAt = DateTime.Now;
             _context.SaveChanges();
         }
-        public void InsertOneUser(UserAcc user)
+        public bool InsertOneUser(UserAcc user)
         {
-            _context.Add(user);
-            _context.SaveChanges();
+            if(CheckUsername(user.Username))
+                {
+                _context.Add(user);
+                _context.SaveChanges();
+                return true;
+                }
+            return false;
         }
-        public void PlaceColorUser(int id)
+        public bool PlaceColorUser(int id)
         {
-            UserAcc RetrievedUser = GetOneUser(id);
-            RetrievedUser.LastPlace = DateTime.Now;
-            _context.SaveChanges();
+            
+            UserAcc RetrievedUser = GetUserById(id);
+            if(RetrievedUser.LastPlace == null)
+            {
+                RetrievedUser.LastPlace = DateTime.Now;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                if (RetrievedUser.LastPlace.Value.AddMinutes(5) >= DateTime.Now)
+                {
+                    RetrievedUser.LastPlace = DateTime.Now;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
-
         #endregion
         #region // Pixel Methods
         public List<Pixel> GetAllPixels()

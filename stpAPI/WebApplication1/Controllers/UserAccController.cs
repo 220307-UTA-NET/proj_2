@@ -36,8 +36,9 @@ namespace stpAPP.API.Controllers
 
         // POST api/<UserAccController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] UserAcc user)
         {
+            _repository.InsertOneUser(user);
         }
 
         // PUT api/<UserAccController>/5
