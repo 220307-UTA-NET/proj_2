@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using stpApp.BusinessLogic;
 using stpAPP.DataLogic;
 
@@ -22,39 +23,99 @@ namespace stpAPP.API.Controllers
 
         // GET: api/<UserAccController>
         [HttpGet]
-        public List<UserAcc> GetAllUsers()
+        public ActionResult<List<UserAcc>> GetAllUsers()
         {
-            return _repository.GetAllUserAcc();
+            try
+            {
+                return _repository.GetAllUserAcc();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving Users from Db");
+                return StatusCode(500);
+            }
         }
 
         // GET api/<UserAccController>/5
         [HttpGet("{id}")]
-        public UserAcc GetUserById(int id)
+        public ActionResult<UserAcc> GetUserById(int id)
         {
-            return _repository.GetUserById(id);
+            UserAcc? user;
+            try
+            {
+                user = _repository.GetUserById(id);
+                if(user == null)
+                {
+                    _logger.LogWarning($@"User with given id: {id}... does not exist");
+                    return StatusCode(500);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retrieving User with id: {id}");
+                return StatusCode(500);
+            }
+            return user;
         }
 
         // POST api/<UserAccController>
         [HttpPost]
-        public void Post([FromBody] UserAcc user)
+        public StatusCodeResult Post([FromBody] UserAcc user)
         {
-            _repository.InsertOneUser(user);
+            try
+            {
+                if(_repository.InsertOneUser(user))
+                {
+                    return StatusCode(200);
+                }
+                _logger.LogInformation($"Username: {user.Username} already in database. Request denied");
+                return StatusCode(400);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogWarning(ex, $@"Exception occured while trying to enter {user.Username}'s information");
+                return StatusCode(500);
+            }
+            
         }
 
         // PUT api/<UserAccController>/5 (id)
         // OR
         // PUT api/<UserAccController>/brian120496 (username)
         [HttpPut("{input}")]
-        public void Put(string input, [FromBody] UserAcc changes)
+        public StatusCodeResult Put(string input, [FromBody] UserAcc changes)
         {
-            _repository.UpdateOneUser(changes, input);
+            try
+            {
+                _repository.UpdateOneUser(changes, input);
+                return StatusCode(200);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Exception occured while trying to update user");
+                return StatusCode(500);
+            }
         }
 
         // DELETE api/<UserAccController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public StatusCodeResult Delete(int id)
         {
-            _repository.DeleteUser(id);
+            try
+            {
+                if(!_repository.DeleteUser(id))
+                {
+                    _logger.LogError($"User with id: {id} was not found in database");
+                    return StatusCode(400);
+                }
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Exception occured while trying to delete user with id: {id}");
+                return StatusCode(500);
+            }
+            
         }
     }
 }

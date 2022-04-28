@@ -20,36 +20,91 @@ namespace stpAPP.API.Controllers
         }
 
 
-        // GET: api/<ValuesController>
+        // GET: api/<PixelController>
         [HttpGet]
-        public List<Pixel> GetAllPixels()
+        public ActionResult<List<Pixel>> GetAllPixels()
         {
-            return _repository.GetAllPixels();
+            try
+            {
+                return _repository.GetAllPixels();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retrieving all pixels from database");
+                return StatusCode(500);
+            }
         }
 
-        // GET api/<ValuesController>/5
+        // GET api/<PixelController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Pixel> GetPixelById(int id)
         {
-            return "value";
+            try
+            {
+                return _repository.GetPixelById(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retriving pixel with id: {id}");
+                return StatusCode(500);
+            }
         }
 
-        // POST api/<ValuesController>
+        // POST api/<PixelController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public StatusCodeResult Post([FromBody] Pixel pixel)
         {
+            try
+            {
+                if(_repository.InsertPixel(pixel))
+                {
+                    return StatusCode(200);
+                }
+                return StatusCode(400);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error in creating the pixel");
+                return StatusCode(500);
+            }
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<PixelController>/1/3/#FFFFFF
+        [HttpPut("{Pid}/{Uid}/{hex}")]
+        public StatusCodeResult Put(int Pid, int Uid, string hex)
         {
+            try
+            {
+                if(!_repository.ChangePixelColorByUser(Pid, Uid, hex))
+                {
+                    return StatusCode(400);
+                }
+                return StatusCode(200);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error in attempt to update requested pixel");
+                return StatusCode(500);
+            }
         }
 
-        // DELETE api/<ValuesController>/5
+        // DELETE api/<PixelController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public StatusCodeResult Delete(int id)
         {
+            try
+            {
+                if(!_repository.DeletePixelById(id))
+                {
+                    return StatusCode(400);
+                }
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error in attempt to delete requested user with id: {id}");
+                return StatusCode(500);
+            }
         }
     }
 }
