@@ -13,8 +13,22 @@ namespace stpAPP.DataLogic
             </summary>
         */
         List<UserAcc> GetAllUserAcc();
-        // need summary
-        UserAcc GetUserById(int id);
+        /* 
+            <summary>
+
+        Queries database for one record of a user in database dependent on id
+        
+            </summary>
+        */
+        UserAcc? GetUserById(int id);
+        /* 
+            <summary>
+
+        Queries database for one record of a user in database dependent on username
+        
+            </summary>
+        */
+        UserAcc? GetUserByUsername(string username);
         /* 
             <summary>
 
@@ -39,7 +53,8 @@ namespace stpAPP.DataLogic
             <summary>
 
         Allows to insert on user object. This will check the database if there is an existing user
-        If username, 
+        If username, is taken by another user in the table, method will return false. Otherwise,
+        insertion will succeed and create new entry. 
         
             </summary>
          */
@@ -47,25 +62,83 @@ namespace stpAPP.DataLogic
         /* 
             <summary>
 
-        Delete a user by their id
+        Delete a user by their id. Returns true if user was found and could be deleted.
+        Returns false, if user with id is not in database.
         
             </summary>
          */
-        void DeleteUser(int id);
+        bool DeleteUser(int id);
         /* 
             <summary>
 
         Insert the user's id to check if they can change a color. Check if the DateTime on
         the lastPlace is null. If null, then a check is done if request greater than 5 minutes.
 
-        This method is to be nested in a Pixel method to change a color.
+        This method is to be nested in a Pixel method to change a color. See Pixel Methods region for functionality details. 
         
             </summary>
          */
-        bool PlaceColorUser(int id);
+        bool CanUserColorChange(int id);
         #endregion
         #region // Pixel Methods
+        /* 
+            <summary>
+
+            Queries database for ALL records of users in database into list.
+
+            </summary>
+        */
         List<Pixel> GetAllPixels();
+        /* 
+            <summary>
+
+            Queries database for one record of a user dependent on id
+
+            </summary>
+        */
+        Pixel? GetPixelById(int id);
+        /* 
+            <summary>
+
+            Queries database for one record of a user dependent on Row number
+
+            </summary>
+        */
+        Pixel? GetPixelByRow(int row_num);
+        /* 
+            <summary>
+
+            Queries database for one record of a user dependent on Column number
+
+            </summary>
+        */
+        Pixel? GetPixelByCol(int col_num);
+        /* 
+            <summary>
+
+            Changes the given pixel's id to another color along with the user who updated
+            the pixel. Uses CanUserColorChange method in User methods to check if enough
+            time has passed according to 5 minute rule.
+
+            </summary>
+        */
+        bool ChangePixelColorByUser(int Pid, int Uid, string hexcolor);
+        /* 
+            <summary>
+
+            Inserts a new pixel which is dependent on if the given row and column number are empty
+
+            </summary>
+        */
+        bool InsertPixel(Pixel pixel);
+        /* 
+            <summary>
+
+            Deletes a pixel by the given id. Returns false if no record was found. 
+
+            </summary>
+        */
+        bool DeletePixelById(int id);
         #endregion
         #region // Guest Methods
         List<Guest> GetAllGuests();
