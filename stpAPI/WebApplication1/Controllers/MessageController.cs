@@ -8,55 +8,55 @@ namespace stpAPP.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PixelController : ControllerBase
+    public class MessageController : ControllerBase
     {
         private readonly IRepository _repository;
-        private readonly ILogger<PixelController> _logger;
+        private readonly ILogger<MessageController> _logger;
 
-        public PixelController(ILogger<PixelController> logger, IRepository repository)
+        public MessageController(ILogger<MessageController> logger, IRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
 
 
-        // GET: api/<PixelController>
+        // GET: api/<MessageController>
         [HttpGet]
-        public ActionResult<List<Pixel>> GetAllPixels()
+        public ActionResult<List<Message>> GetAllMessages()
         {
             try
             {
-                return _repository.GetAllPixels();
+                return _repository.GetAllMessages();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error retrieving all pixels from database");
+                _logger.LogError(ex, $"error in retriving all messages");
                 return StatusCode(500);
             }
         }
 
-        // GET api/<PixelController>/5
+        // GET api/<MessageController>/5
         [HttpGet("{id}")]
-        public ActionResult<Pixel> GetPixelById(int id)
+        public ActionResult<Message?> GetMessageById(int id)
         {
             try
             {
-                return _repository.GetPixelById(id);
+                return _repository.GetMessagebyId(id);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error retriving pixel with id: {id}");
+                _logger.LogError(ex, $"error in getting guest with id: {id}");
                 return StatusCode(500);
             }
         }
 
-        // POST api/<PixelController>
+        // POST api/<MessageController>
         [HttpPost]
-        public StatusCodeResult Post([FromBody] Pixel pixel)
+        public StatusCodeResult Post([FromBody] Message message)
         {
             try
             {
-                if(_repository.InsertPixel(pixel))
+                if (_repository.InsertMessage(message)) 
                 {
                     return StatusCode(200);
                 }
@@ -64,45 +64,46 @@ namespace stpAPP.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error in creating the pixel");
+                _logger.LogError(ex, $"Exception occured in creating message");
                 return StatusCode(500);
             }
         }
 
-        // PUT api/<PixelController>/1/3/#FFFFFF
-        [HttpPut("{Pid}/{Uid}/{hex}")]
-        public StatusCodeResult Put(int Pid, int Uid, string hex)
+        // PUT api/<MessageController>/5
+        [HttpPut]
+        public StatusCodeResult Put([FromBody] Message changes)
         {
             try
             {
-                if(!_repository.ChangePixelColorByUser(Pid, Uid, hex))
+                if(_repository.UpdateMessage(changes))
                 {
-                    return StatusCode(400);
+                    return StatusCode(200);
                 }
-                return StatusCode(200);
+                return StatusCode(400);
             }
             catch(Exception ex)
             {
-                _logger.LogError(ex, "Error in attempt to update requested pixel");
+                _logger.LogError(ex, $"Exception occured in updated message with id: {changes.Id}");
                 return StatusCode(500);
             }
+            
         }
 
-        // DELETE api/<PixelController>/5
+        // DELETE api/<MessageController>/5
         [HttpDelete("{id}")]
         public StatusCodeResult Delete(int id)
         {
             try
             {
-                if(!_repository.DeletePixelById(id))
+                if(_repository.DeleteMessagebyId(id))
                 {
-                    return StatusCode(400);
+                    return StatusCode(200);
                 }
-                return StatusCode(200);
+                return StatusCode(400);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error in attempt to delete requested user with id: {id}");
+                _logger.LogError(ex, $"Exception occured in deleteing message with id: {id}");
                 return StatusCode(500);
             }
         }

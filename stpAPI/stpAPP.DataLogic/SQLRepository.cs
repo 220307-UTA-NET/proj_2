@@ -144,7 +144,7 @@ namespace stpAPP.DataLogic
         {
             // check if column and row are occupied by a pixel already
             // if one of the spaces are empty, then allow pixel creation
-            if(GetPixelByCol(pixel.Col) == null && GetPixelByRow(pixel.Row) == null)
+            if(GetPixelByCol(pixel.Col) == null || GetPixelByRow(pixel.Row) == null)
             {
                 _context.Add(pixel);
                 _context.SaveChanges();
@@ -158,6 +158,7 @@ namespace stpAPP.DataLogic
             if(pixel != null)
             {
                 _context.Remove(pixel);
+                _context.SaveChanges();
                 return true;
             }
             return false;
@@ -167,6 +168,99 @@ namespace stpAPP.DataLogic
         public List<Guest> GetAllGuests()
         {
             return _context.Guests.ToList();
+        }
+        public Guest? GetGuestById(int id)
+        {
+            return _context.Guests.FirstOrDefault(x => x.Id == id);
+        }
+        public Guest? GetGuestByIp(string ip)
+        {
+            return _context.Guests.FirstOrDefault(x => x.IpAddress == ip);
+        }
+        public bool CreateGuestbyIp(string ip)
+        {
+            if(GetGuestByIp(ip) == null)
+            {
+                Guest guest = new Guest();
+                guest.IpAddress = ip;
+                guest.LastPlace = DateTime.Now;
+                _context.Guests.Add(guest);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool UpdateGuestById(Guest changes, int id)
+        {
+            Guest? guest = GetGuestById(id);
+            if(guest != null)
+            {
+                guest.IpAddress = changes.IpAddress;
+                guest.LastPlace = changes.LastPlace;
+                guest.UpdatedAt = DateTime.Now;
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool DeleteGuestById(int id)
+        {
+            Guest? guest = GetGuestById(id);
+            if(guest != null)
+            {
+                _context.Guests.Remove(guest);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        #endregion
+        #region // Message Methods
+        public List<Message> GetAllMessages()
+        {
+            return _context.Messages.ToList();
+        }
+        public Message? GetMessagebyId(int id)
+        {
+            return _context.Messages.FirstOrDefault(m => m.Id == id);
+        }
+        public bool InsertMessage(Message message)
+        {
+            try
+            {
+                _context.Messages.Add(message);
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool UpdateMessage(Message changes)
+        {
+            Message? original = GetMessagebyId(changes.Id);
+            if(original != null)
+            {
+                original.UserId = changes.UserId;
+                original.UpdatedAt = DateTime.Now;
+                original.messageContents = changes.messageContents;
+                _context.Update(original);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool DeleteMessagebyId(int id)
+        {
+            Message? message = GetMessagebyId(id);
+            if(message != null)
+            {
+                _context.Remove(message);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
         #endregion
     }

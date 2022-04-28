@@ -18,6 +18,7 @@ namespace stpApp.BusinessLogic
         public virtual DbSet<Guest> Guests { get; set; } = null!;
         public virtual DbSet<Pixel> Pixels { get; set; } = null!;
         public virtual DbSet<UserAcc> UserAccs { get; set; } = null!;
+        public virtual DbSet<Message> Messages { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -110,6 +111,27 @@ namespace stpApp.BusinessLogic
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("username");
+            });
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.ToTable("Message");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.UserId).HasColumnName("UserId");
+
+                entity.Property(e => e.messageContents)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(sysdatetime())");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updated_at")
+                    .HasDefaultValueSql("(sysdatetime())");
+
             });
 
             OnModelCreatingPartial(modelBuilder);
