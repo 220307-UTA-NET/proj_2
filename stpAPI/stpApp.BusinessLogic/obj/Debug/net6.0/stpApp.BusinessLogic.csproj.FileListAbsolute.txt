@@ -26,3 +26,17 @@ C:\Users\root\Desktop\Proj_2\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0
 C:\Users\root\Desktop\Proj_2\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.pdb
 C:\Users\root\Desktop\Proj_2\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.genruntimeconfig.cache
 C:\Users\root\Desktop\Proj_2\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\ref\stpAPP.BusinessLogic.dll
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\bin\Debug\net6.0\stpAPP.BusinessLogic.deps.json
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\bin\Debug\net6.0\stpAPP.BusinessLogic.runtimeconfig.json
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\bin\Debug\net6.0\stpAPP.BusinessLogic.dll
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\bin\Debug\net6.0\stpAPP.BusinessLogic.pdb
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.csproj.AssemblyReference.cache
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.AssemblyInfoInputs.cache
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.AssemblyInfo.cs
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.csproj.CoreCompileInputs.cache
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.dll
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\refint\stpAPP.BusinessLogic.dll
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.pdb
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\stpAPP.BusinessLogic.genruntimeconfig.cache
+C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\obj\Debug\net6.0\ref\stpAPP.BusinessLogic.dll
