@@ -1,0 +1,21 @@
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+td{
+    background-color: aqua;
+    width: 50px;
+    height:50px;
+    outline: 0;
+    border: none;
+    display: inline-block;
+}
+td:hover{
+    background: black;
+}
+tr{
+    display: block;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+}
