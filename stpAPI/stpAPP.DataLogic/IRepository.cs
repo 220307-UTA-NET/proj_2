@@ -100,22 +100,6 @@ namespace stpAPP.DataLogic
         /* 
             <summary>
 
-            Queries database for one record of a user dependent on Row number
-
-            </summary>
-        */
-        Pixel? GetPixelByRow(int row_num);
-        /* 
-            <summary>
-
-            Queries database for one record of a user dependent on Column number
-
-            </summary>
-        */
-        Pixel? GetPixelByCol(int col_num);
-        /* 
-            <summary>
-
             Changes the given pixel's id to another color along with the user who updated
             the pixel. Uses CanUserColorChange method in User methods to check if enough
             time has passed according to 5 minute rule.
@@ -123,6 +107,16 @@ namespace stpAPP.DataLogic
             </summary>
         */
         bool ChangePixelColorByUser(int Pid, int Uid, string hexcolor);
+        /* 
+            <summary>
+
+            Changes the given pixel's id to another color along with the guest who updated
+            the pixel. Uses CanGuestColorChange method in Guest methods to check if enough
+            time has passed according to 5 minute rule.
+
+            </summary>
+        */
+        bool ChangePixelColorByGuest(int Pid, int Gid, string hexcolor);
         /* 
             <summary>
 
@@ -166,6 +160,17 @@ namespace stpAPP.DataLogic
             </summary>
         */
         bool CreateGuestbyIp(string ip);
+        /* 
+            <summary>
+
+        Insert the guest's id to check if they can change a color. Check if the DateTime on
+        the lastPlace is null. If null, then a check is done if request greater than 10 minutes.
+
+        This method is to be nested in a Pixel method to change a color. See Pixel Methods region for functionality details. 
+        
+            </summary>
+         */
+        bool CanGuestColorChange(int id);
         /* 
             <summary>
 

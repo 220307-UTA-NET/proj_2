@@ -1,4 +1,5 @@
-
-<div *ngFor="let item of pixels">
-    <div [style.background]="item.Color" class="pixel"></div>
+<div id="pixel-container">
+<ng-container *ngFor="let item of pixels; let i=index;">
+        <div [style.background]="item.Color" class="pixel"></div>
+</ng-container>
 </div>

@@ -3,10 +3,23 @@
     padding: 0px;
 }
 
+#pixel-container {
+    width: 60vw;
+    height: 60vh;
+    background-color: #dae0e6;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-around;
+}
+
+.pixel-row
+{
+    width: 100%;
+}
+
 .pixel {
     width: 100px;
     height: 100px;
-    margin-left: 50px;
-    margin-top: 50px;
-    outline: 1px solid black;
+    border: 1px solid black;
 }
