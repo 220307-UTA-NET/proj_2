@@ -1,6 +1,8 @@
 -- might want to add ipaddress to this table later, users could exploit by using the guest table by logging out
 -- and logging into user to change a pixel again
 
+-- "User" is a already used keyword in SqlServer | Using UserAcc instead
+
 CREATE TABLE UserAcc (
   id INT IDENTITY(1,1) PRIMARY KEY,
   username varchar(255) NOT NULL,
@@ -31,3 +33,11 @@ CREATE TABLE Pixel (
   updated_at DATETIME NULL DEFAULT SYSDATETIME(),
   updatedBy varchar(255) NULL
 );
+
+Create TABLE Message (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  messageContents Text Not Null,
+  UserId INT FOREIGN KEY REFERENCES UserAcc(id),
+  created_at DATETIME NULL DEFAULT SYSDATETIME(),
+  updated_at DATETIME NULL DEFAULT SYSDATETIME()
+)

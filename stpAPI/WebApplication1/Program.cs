@@ -18,7 +18,7 @@ builder.Services.AddScoped<IRepository, SQLRepository>();
 string connectionString = builder.Configuration["connectionString"];
 
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration["DBInfo:ConnectionString"]));
-
+builder.Services.AddCors();
 
 
 
@@ -44,6 +44,13 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseCors(
+    x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials()
+            );
 
 app.MapControllers();
 

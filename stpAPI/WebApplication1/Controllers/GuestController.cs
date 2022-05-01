@@ -11,45 +11,101 @@ namespace stpAPP.API.Controllers
     public class GuestController : ControllerBase
     {
         private readonly IRepository _repository;
-        private readonly ILogger<UserAccController> _logger;
+        private readonly ILogger<GuestController> _logger;
 
-        public GuestController(ILogger<UserAccController> logger, IRepository repository)
+        public GuestController(ILogger<GuestController> logger, IRepository repository)
         {
             _logger = logger;
             _repository = repository;
         }
 
 
-        // GET: api/<ValuesController>
+        // GET: api/<GuestController>
         [HttpGet]
-        public List<Guest> GetAllGuests()
+        public ActionResult<List<Guest>> GetAllGuests()
         {
-            return _repository.GetAllGuests();
+            try
+            {
+                return _repository.GetAllGuests();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"error in retriving all guests");
+                return StatusCode(500);
+            }
         }
 
-        // GET api/<ValuesController>/5
+        // GET api/<GuestController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Guest?> GetGuestById(int id)
         {
-            return "value";
+            try
+            {
+                return _repository.GetGuestById(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"error in getting guest with id: {id}");
+                return StatusCode(500);
+            }
         }
 
-        // POST api/<ValuesController>
+        // POST api/<GuestController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public StatusCodeResult Post([FromBody] string ip)
         {
+            try
+            {
+                if(_repository.CreateGuestbyIp(ip))
+                {
+                    return StatusCode(200);
+                }
+                return StatusCode(400);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Exception occured in creating guest with ip: {ip}");
+                return StatusCode(500);
+            }
         }
 
-        // PUT api/<ValuesController>/5
+        // PUT api/<GuestController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public StatusCodeResult Put(int id, [FromBody] Guest changes)
         {
+            try
+            {
+                if(_repository.UpdateGuestById(changes, id))
+                {
+                    return StatusCode(200);
+                }
+                return StatusCode(400);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"Exception occured in updated guest with id: {id}");
+                return StatusCode(500);
+            }
+            
         }
 
-        // DELETE api/<ValuesController>/5
+        // DELETE api/<GuestController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public StatusCodeResult Delete(int id)
         {
+            try
+            {
+                if(_repository.DeleteGuestById(id))
+                {
+                    return StatusCode(200);
+                }
+                return StatusCode(400);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Exception occured in deleteing guest with id: {id}");
+                return StatusCode(500);
+            }
         }
     }
 }

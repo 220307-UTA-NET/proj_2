@@ -11,9 +11,9 @@ namespace stpAPP.API.Controllers
     public class PixelController : ControllerBase
     {
         private readonly IRepository _repository;
-        private readonly ILogger<UserAccController> _logger;
+        private readonly ILogger<PixelController> _logger;
 
-        public PixelController(ILogger<UserAccController> logger, IRepository repository)
+        public PixelController(ILogger<PixelController> logger, IRepository repository)
         {
             _logger = logger;
             _repository = repository;
@@ -26,6 +26,7 @@ namespace stpAPP.API.Controllers
         {
             try
             {
+                Console.WriteLine("angular ran");
                 return _repository.GetAllPixels();
             }
             catch (Exception ex)
