@@ -85,6 +85,7 @@ namespace stpAPP.DataLogic
                     if (RetrievedUser.LastPlace.Value.AddMinutes(5) >= DateTime.Now)
                     {
                         RetrievedUser.LastPlace = DateTime.Now;
+                        _context.SaveChanges();
                         return true;
                     }
                     else
@@ -93,7 +94,6 @@ namespace stpAPP.DataLogic
                     }
                 }
             }
-
         }
         public bool DeleteUser(int id)
         {
@@ -117,14 +117,6 @@ namespace stpAPP.DataLogic
         {
             return _context.Pixels.Find(id);
         }
-        public Pixel? GetPixelByRow(int row_num)
-        {
-            return _context.Pixels.FirstOrDefault(x => x.Row == row_num);
-        }
-        public Pixel? GetPixelByCol(int col_num)
-        {
-            return _context.Pixels.FirstOrDefault(x => x.Col == col_num);
-        }
         public bool ChangePixelColorByUser(int Pid, int Uid, string hexcolor) 
         {
             Pixel? pixel = GetPixelById(Pid);
@@ -140,17 +132,33 @@ namespace stpAPP.DataLogic
             }
             return false;
         }
+        public bool ChangePixelColorByGuest(int Pid, int Gid, string hexcolor)
+        {
+            Pixel? pixel = GetPixelById(Pid);
+            // check if pixel object to be changed is not null
+            // check if guest's 10 minute restriction has passed
+            if (pixel != null && CanGuestColorChange(Gid))
+            {
+                pixel.Color = hexcolor;
+                pixel.UpdatedAt = DateTime.Now;
+                pixel.UpdatedBy = "Guest";
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
         public bool InsertPixel(Pixel pixel)
         {
-            // check if column and row are occupied by a pixel already
-            // if one of the spaces are empty, then allow pixel creation
-            if(GetPixelByCol(pixel.Col) == null || GetPixelByRow(pixel.Row) == null)
+            try
             {
                 _context.Add(pixel);
                 _context.SaveChanges();
                 return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
         public bool DeletePixelById(int id)
         {
@@ -176,6 +184,36 @@ namespace stpAPP.DataLogic
         public Guest? GetGuestByIp(string ip)
         {
             return _context.Guests.FirstOrDefault(x => x.IpAddress == ip);
+        }
+        public bool CanGuestColorChange(int id)
+        {
+            Guest? RetrievedGuest = GetGuestById(id);
+            if (RetrievedGuest == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (RetrievedGuest.LastPlace == null)
+                {
+                    RetrievedGuest.LastPlace = DateTime.Now;
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    if (RetrievedGuest.LastPlace.Value.AddMinutes(10) >= DateTime.Now)
+                    {
+                        RetrievedGuest.LastPlace = DateTime.Now;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
         }
         public bool CreateGuestbyIp(string ip)
         {

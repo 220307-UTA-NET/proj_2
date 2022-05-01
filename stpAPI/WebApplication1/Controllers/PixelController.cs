@@ -71,7 +71,7 @@ namespace stpAPP.API.Controllers
 
         // PUT api/<PixelController>/1/3/#FFFFFF
         [HttpPut("{Pid}/{Uid}/{hex}")]
-        public StatusCodeResult Put(int Pid, int Uid, string hex)
+        public StatusCodeResult PutUser(int Pid, int Uid, string hex)
         {
             try
             {
@@ -82,6 +82,24 @@ namespace stpAPP.API.Controllers
                 return StatusCode(200);
             }
             catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error in attempt to update requested pixel");
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPut("{Pid}/{Uid}/{hex}")]
+        public StatusCodeResult PutGuest(int Pid, int Gid, string hex)
+        {
+            try
+            {
+                if (!_repository.ChangePixelColorByUser(Pid, Gid, hex))
+                {
+                    return StatusCode(400);
+                }
+                return StatusCode(200);
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Error in attempt to update requested pixel");
                 return StatusCode(500);

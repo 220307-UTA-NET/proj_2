@@ -24,10 +24,11 @@ CREATE TABLE Guest (
 
 -- Column is a reserved keyword hence 'Col'
 
+-- deleting Row/Column seems frontend does not need the extra info if we have ids. Also PAIN to actually implement
+-- in angular
+
 CREATE TABLE Pixel (
   id INT IDENTITY(1,1) PRIMARY KEY,
-  Row SMALLINT NOT NULL,
-  Col SMALLINT NOT NULL,
   Color varchar(255) NOT NULL,
   created_at DATETIME NULL DEFAULT SYSDATETIME(),
   updated_at DATETIME NULL DEFAULT SYSDATETIME(),
