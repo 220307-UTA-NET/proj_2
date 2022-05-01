@@ -1,5 +1,6 @@
 <div id="pixel-container">
 <ng-container *ngFor="let item of pixels; let i=index;">
-        <div [style.background]="item.Color" class="pixel"></div>
+        <div [style.background]="item.Color" class="pixel" (click)="PixelSelection(this.item)"></div>
+
 </ng-container>
 </div>

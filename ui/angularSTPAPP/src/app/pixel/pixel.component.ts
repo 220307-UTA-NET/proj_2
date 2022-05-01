@@ -19,6 +19,8 @@ export class Pixel {
 })
 export class PixelComponent implements OnInit {
   public pixels: Array<any> = [];
+  public Selection: Pixel = new Pixel(0, "none", "none", "none", "none");
+
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -34,24 +36,24 @@ export class PixelComponent implements OnInit {
 
   }
 
-  // todo
-  changePixelUser(Pid:string, Uid:string, hex:string) {
+// move to user component when ready
+  changePixelUser(Pid:number, Uid:number, hex:string) {
     this.httpClient.put<void>(`https://localhost:7161/api/pixel/${Pid}/${Uid}/${hex}`, Pid)
   }
 
-  decToHex(value:any) {
-    if (value > 255) {
-      return 'FF';
-    } else if (value < 0) {
-      return '00';
-    } else {
-      return value.toString(16).padStart(2, '0').toUpperCase();
-    }
+  PixelSelection(selectedElement:any)
+  {
+    this.Selection = selectedElement;
+    console.log(this.Selection);
+    const pixelElements = document.querySelectorAll(".pixel");
+
+    pixelElements.forEach(item => {
+      item.setAttribute("class", "pixel");
+    })
+
+    selectedElement.style = "border: 10px dashed black;";
   }
 
-  rgbToHex(r:any, g:any, b:any) {
-    return '#' + this.decToHex(r) + this.decToHex(g) + this.decToHex(b);
-  }
 
   ngOnInit(): void {
     this.getPixels();
