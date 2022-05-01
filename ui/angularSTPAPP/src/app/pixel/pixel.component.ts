@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
 export class Pixel {
   constructor(
     public id: number,
-    public Row: number,
-    public Col: number,
     public Color: string,
     public created_at: string,
     public updated_at: string,
@@ -21,6 +19,8 @@ export class Pixel {
 })
 export class PixelComponent implements OnInit {
   public pixels: Array<any> = [];
+  public Selection: Pixel = new Pixel(0, "none", "none", "none", "none");
+
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -30,20 +30,35 @@ export class PixelComponent implements OnInit {
       response => {
       console.log(response);
       for (let index = 0; index < response.length; index++) {
-        this.pixels.push(new Pixel(response[index].id, response[index].row, response[index].col, response[index].color, response[index].createdat, response[index].updatedat, response[index].updatedby));
+        this.pixels.push(new Pixel(response[index].id, response[index].color, response[index].createdat, response[index].updatedat, response[index].updatedby));
       }
     });
 
   }
 
-  // todo
-  changePixel() {
-
+// move to user component when ready
+  changePixelUser(Pid:number, Uid:number, hex:string) {
+    this.httpClient.put<void>(`https://localhost:7161/api/pixel/${Pid}/${Uid}/${hex}`, Pid)
   }
+
+  PixelSelection(selectedElement:any)
+  {
+    this.Selection = selectedElement;
+    console.log(this.Selection);
+    const pixelElements = document.querySelectorAll(".pixel");
+
+    pixelElements.forEach(item => {
+      item.setAttribute("class", "pixel");
+    })
+
+    selectedElement.style = "border: 10px dashed black;";
+  }
+
 
   ngOnInit(): void {
     this.getPixels();
   }
+
 
   
 
