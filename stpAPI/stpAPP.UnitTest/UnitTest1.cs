@@ -128,6 +128,8 @@ namespace stpAPP.UnitTest
             Assert.Equal(message.UpdatedAt, updatedAt);
         }
 
+
+        #region   // Mock Testing UserAcc Methods
         [Fact]
         public void Test_GetAllUserAcc_Mock() {
             // ARRANGE
@@ -162,22 +164,6 @@ namespace stpAPP.UnitTest
             Assert.Equal("John", actualUsername2);
             Assert.Equal("pw234", actualPassword2);
         }
-
-        //[Fact]
-        //public void Test_UpdateOneUserAcc_Mock()
-        //{
-        //    // ARRANGE
-        //    UserAcc userAcc = new UserAcc();
-        //    string input = "JohnW";
-        //    Mock<IRepository> mockRepo = new();
-        //    mockRepo.Setup(x => x.UpdateOneUser(userAcc, input)).Returns();
-        //    STP stp = new STP(mockRepo.Object);
-
-        //    // ACT
-        //    stp.UpdateUser(userAcc, input);
-
-        //    // ASSERT
-        //}
 
 
         [Fact]
@@ -254,5 +240,113 @@ namespace stpAPP.UnitTest
             // ASSERT
             Assert.True(actual);
         }
+
+
+        //[Fact]
+        //public void Test_UpdateOneUserAcc_Mock()
+        //{
+        //    // ARRANGE
+        //    UserAcc userAcc = new UserAcc();
+        //    string input = "JohnW";
+        //    Mock<IRepository> mockRepo = new();
+        //    mockRepo.Setup(x => x.UpdateOneUser(userAcc, input)).Returns();
+        //    STP stp = new STP(mockRepo.Object);
+
+        //    // ACT
+        //    stp.UpdateUser(userAcc, input);
+
+        //    // ASSERT
+        //}
+
+        [Fact]
+        public void Test_InsertOneUser_Mock()
+        {
+            // ARRANGE
+            UserAcc userAcc = new UserAcc(45, "Williams", "pw89", DateTime.Now, DateTime.Now, DateTime.Now);
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.InsertOneUser(userAcc)).Returns(false);
+            STP stp = new STP(mockRepo.Object);
+            //CheckUsername
+
+            // ACT
+            bool actual = stp.InsertOneUser(userAcc);
+
+            // ASSERT
+            Assert.False(actual);
+        }
+
+
+        [Fact]
+        public void Test_DeleteUser_Mock() 
+        { 
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.DeleteUser(45)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.DeleteUser(45);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+
+        [Fact]
+        public void Test_CanUserColorChange_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.CanUserColorChange(45)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.CanUserColorChange(45);
+
+            // ASSERT
+            Assert.True(actual);
+
+        }
+        #endregion
+
+
+        #region   //Mock Testing Pixel Methods
+        public void Test_GetAllPixels_Mock()
+        {
+            // ARRANGE
+            List<Pixel> pixelList = new List<Pixel>();
+            pixelList.Add(new Pixel(12, 1, 1, "yellow", DateTime.Now, DateTime.Now, "Charles"));
+            pixelList.Add(new Pixel(24, 2, 2, "red", DateTime.Now, DateTime.Now, "Williams"));
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetAllUserAcc()).Returns(userAccList);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            List<UserAcc> list = stp.GetAllUserAcc();
+
+            // ASSERT
+            //Check for collection is not empty
+            Assert.NotEmpty(list);
+
+            //Check for collection count
+            Assert.Equal(2, list.Count);
+
+            //Check for collection contain some specific values
+            Assert.Contains(userAccList[0], list);
+            Assert.Contains(userAccList[1], list);
+
+            //Check if list object contains a value
+            string actualUsername1 = list[0].Username;
+            string actualPassword1 = list[0].Password;
+            string actualUsername2 = list[1].Username;
+            string actualPassword2 = list[1].Password;
+            Assert.Equal("Charles", actualUsername1);
+            Assert.Equal("pw123", actualPassword1);
+            Assert.Equal("John", actualUsername2);
+            Assert.Equal("pw234", actualPassword2);
+        }
+
+
+        #endregion
     }
 }
