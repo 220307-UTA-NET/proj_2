@@ -1,0 +1,12 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.pixel {
+    width: 100px;
+    height: 100px;
+    margin-left: 50px;
+    margin-top: 50px;
+    outline: 1px solid black;
+}

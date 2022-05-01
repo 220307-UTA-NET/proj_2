@@ -26,6 +26,7 @@ namespace stpAPP.API.Controllers
         {
             try
             {
+                Console.WriteLine("angular ran");
                 return _repository.GetAllPixels();
             }
             catch (Exception ex)
