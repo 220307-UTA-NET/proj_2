@@ -1,6 +1,10 @@
 <div id="pixel-container">
 <ng-container *ngFor="let item of pixels; let i=index;">
-        <div [style.background]="item.Color" class="pixel" (click)="PixelSelection(this.item)"></div>
-
+        <ng-container *ngIf="item == Selection">
+                <div [style.background]="item.Color" class="pixel-selection" (click)="PixelSelection(this.item)"></div>
+        </ng-container>
+        <ng-container *ngIf="item != Selection">
+                <div [style.background]="item.Color" class="pixel" (click)="PixelSelection(this.item)"></div>
+        </ng-container>
 </ng-container>
 </div>
