@@ -51,16 +51,17 @@ namespace stpAPP.API.Controllers
         }
 
         // POST api/<GuestController>
-        [HttpPost]
-        public StatusCodeResult Post([FromBody] string ip)
+        [HttpPost("ipaddress/{ip}")]
+        public StatusCodeResult Post(string ip)
         {
+            Console.WriteLine(ip);
             try
             {
                 if(_repository.CreateGuestbyIp(ip))
                 {
                     return StatusCode(200);
                 }
-                return StatusCode(400);
+                return StatusCode(200);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../shared/shared.service';
 
 export class Pixel {
   constructor(
@@ -22,7 +23,7 @@ export class PixelComponent implements OnInit {
   public Selection: Pixel = new Pixel(0, "none", "none", "none", "none");
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient, private shared:SharedService
   ) { }
 
   getPixels() {
@@ -44,19 +45,21 @@ export class PixelComponent implements OnInit {
   PixelSelection(selectedElement:any)
   {
     this.Selection = selectedElement;
+    this.shared.setSelection(this.Selection);
     console.log(this.Selection);
+    /*
     const pixelElements = document.querySelectorAll(".pixel");
 
     pixelElements.forEach(item => {
       item.setAttribute("class", "pixel");
     })
-
-    selectedElement.style = "border: 10px dashed black;";
+    */
   }
 
 
   ngOnInit(): void {
     this.getPixels();
+    this.shared.setSelection(this.Selection);
   }
 
 
