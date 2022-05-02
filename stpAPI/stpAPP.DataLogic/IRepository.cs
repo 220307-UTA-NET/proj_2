@@ -146,11 +146,19 @@ namespace stpAPP.DataLogic
         /* 
             <summary>
 
-        Queries database for one record of a user in database with given id
+        Queries database for one record of a guest in database with given id
         
             </summary>
         */
         Guest? GetGuestById(int id);
+        /* 
+            <summary>
+
+        Queries database for one record of a guest in database with given ip
+        
+            </summary>
+        */
+        Guest? GetGuestByIp(string ip);
         /* 
             <summary>
 
