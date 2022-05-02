@@ -134,6 +134,7 @@ namespace stpAPP.DataLogic
         */
         bool DeletePixelById(int id);
         #endregion
+
         #region // Guest Methods
         /* 
             <summary>

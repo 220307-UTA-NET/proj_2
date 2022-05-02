@@ -11,7 +11,8 @@ namespace stpAPP.UnitTest
 {
     public class UnitTest1
     {
-     
+
+        #region   // Basic Testing: Test Classes Properties
         [Fact]
         public void TestGuestProperties()
         {
@@ -45,8 +46,6 @@ namespace stpAPP.UnitTest
         {
             // ARRANGE
             int id = 234;
-            short row = 5;
-            short col = 6;
             string color = "red";
             DateTime createdAt = DateTime.Now;
             DateTime updatedAt = DateTime.Now;
@@ -55,8 +54,6 @@ namespace stpAPP.UnitTest
             // ACT
             Pixel pixel = new Pixel();
             pixel.Id = id;
-            pixel.Row = row;
-            pixel.Col = col;
             pixel.Color = color;
             pixel.CreatedAt = createdAt;
             pixel.UpdatedAt = updatedAt;
@@ -64,8 +61,6 @@ namespace stpAPP.UnitTest
 
             // ASSERT
             Assert.Equal(pixel.Id, id);
-            Assert.Equal(pixel.Row, row);
-            Assert.Equal(pixel.Col, col);
             Assert.Equal(pixel.Color, color);
             Assert.Equal(pixel.CreatedAt, createdAt);
             Assert.Equal(updatedBy, pixel.UpdatedBy);
@@ -127,6 +122,7 @@ namespace stpAPP.UnitTest
             Assert.Equal(message.UserId, userID);
             Assert.Equal(message.UpdatedAt, updatedAt);
         }
+        #endregion
 
 
         #region   // Mock Testing UserAcc Methods
@@ -310,19 +306,20 @@ namespace stpAPP.UnitTest
         #endregion
 
 
-        #region   //Mock Testing Pixel Methods
+        #region   // Mock Testing Pixel Methods
+        [Fact]
         public void Test_GetAllPixels_Mock()
         {
             // ARRANGE
             List<Pixel> pixelList = new List<Pixel>();
-            pixelList.Add(new Pixel(12, 1, 1, "yellow", DateTime.Now, DateTime.Now, "Charles"));
-            pixelList.Add(new Pixel(24, 2, 2, "red", DateTime.Now, DateTime.Now, "Williams"));
+            pixelList.Add(new Pixel(12, "yellow", DateTime.Now, DateTime.Now, "Charles"));
+            pixelList.Add(new Pixel(24, "red", DateTime.Now, DateTime.Now, "Williams"));
             Mock<IRepository> mockRepo = new();
-            mockRepo.Setup(x => x.GetAllUserAcc()).Returns(userAccList);
+            mockRepo.Setup(x => x.GetAllPixels()).Returns(pixelList);
             STP stp = new STP(mockRepo.Object);
 
             // ACT
-            List<UserAcc> list = stp.GetAllUserAcc();
+            List<Pixel> list = stp.GetAllPixels();
 
             // ASSERT
             //Check for collection is not empty
@@ -332,20 +329,246 @@ namespace stpAPP.UnitTest
             Assert.Equal(2, list.Count);
 
             //Check for collection contain some specific values
-            Assert.Contains(userAccList[0], list);
-            Assert.Contains(userAccList[1], list);
+            Assert.Contains(pixelList[0], list);
+            Assert.Contains(pixelList[1], list);
 
             //Check if list object contains a value
-            string actualUsername1 = list[0].Username;
-            string actualPassword1 = list[0].Password;
-            string actualUsername2 = list[1].Username;
-            string actualPassword2 = list[1].Password;
-            Assert.Equal("Charles", actualUsername1);
-            Assert.Equal("pw123", actualPassword1);
-            Assert.Equal("John", actualUsername2);
-            Assert.Equal("pw234", actualPassword2);
+            int actualId1 = list[0].Id;
+            string actualColor1 = list[0].Color;
+            string? actualUpdatedBy1 = list[0].UpdatedBy;
+            int actualId2 = list[1].Id;
+            string actualColor2 = list[1].Color;
+            string? actualUpdatedBy2 = list[1].UpdatedBy;
+            Assert.Equal(12, actualId1);
+            Assert.Equal("yellow", actualColor1);
+            Assert.Equal("Charles", actualUpdatedBy1);
+            Assert.Equal(24, actualId2);
+            Assert.Equal("red", actualColor2);
+            Assert.Equal("Williams", actualUpdatedBy2);
         }
 
+        [Fact]
+        public void Test_GetPixelById_Mock()
+        {
+            // ARRANGE
+            DateTime expectedCreatedAt = DateTime.Now;
+            DateTime expectedUpdatedAt = DateTime.Now;
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetPixelById(56)).Returns(new Pixel(56, "blue", expectedCreatedAt, expectedUpdatedAt, "Bibi"));
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            Pixel? pixel = stp.GetPixelById(56);
+            int actualId = pixel.Id;
+            string actualColor = pixel.Color;
+            DateTime? actualCreatedAt = pixel.CreatedAt;
+            DateTime? actualUpdatedAt = pixel.UpdatedAt;
+            string? actualUpdatedBy = pixel.UpdatedBy; ;
+
+            // ASSERT
+            Assert.Equal(56, actualId);
+            Assert.Equal("blue", actualColor);
+            Assert.Equal(expectedCreatedAt, actualCreatedAt);
+            Assert.Equal(expectedUpdatedAt, actualUpdatedAt);
+            Assert.Equal("Bibi", actualUpdatedBy);
+        }
+
+
+        [Fact]
+        public void Test_ChangePixelColorByUser_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.ChangePixelColorByUser(56, 123, "#1cfc03")).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.ChangePixelColorByUser(56, 123, "#1cfc03");
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_ChangePixelColorByGuest_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.ChangePixelColorByGuest(44, 12, "#0341fc")).Returns(false);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.ChangePixelColorByGuest(44, 12, "#0341fc");
+
+            // ASSERT
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void Test_InsertPixel_Mock()
+        {
+            // ARRANGE
+            Pixel pixel = new Pixel(45, "black", DateTime.Now, DateTime.Now, "user");
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.InsertPixel(pixel)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+            //CheckUsername
+
+            // ACT
+            bool actual = stp.InsertPixel(pixel);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_DeletePixelById_Mock()
+        {
+            // DeletePixelById(int id)
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.DeletePixelById(45)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.DeletePixelById(45);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        #endregion
+
+
+        #region   // Mock Testing Guest Methods
+
+        [Fact]
+        public void Test_GetAllGuests_Mock()
+        {
+            // ARRANGE
+            List<Guest> guestList = new List<Guest>();
+            guestList.Add(new Guest(01, DateTime.Now, "123.0.0.5", DateTime.Now, DateTime.Now));
+            guestList.Add(new Guest(05, DateTime.Now, "124.0.0.7", DateTime.Now, DateTime.Now));
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetAllGuests()).Returns(guestList);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            List<Guest> list = stp.GetAllGuests();
+
+            // ASSERT
+            //Check for collection is not empty
+            Assert.NotEmpty(list);
+
+            //Check for collection count
+            Assert.Equal(2, list.Count);
+
+            //Check for collection contain some specific values
+            Assert.Contains(guestList[0], list);
+            Assert.Contains(guestList[1], list);
+
+            //Check if list object contains a value
+            int actualId1 = list[0].Id;
+            string actualIpAdress1 = list[0].IpAddress;
+            int actualId2 = list[1].Id;
+            string actualIpAdress2 = list[1].IpAddress;
+
+            // ASSERT
+            Assert.Equal(01, actualId1);
+            Assert.Equal("123.0.0.5", actualIpAdress1);
+            Assert.Equal(05, actualId2);
+            Assert.Equal("124.0.0.7", actualIpAdress2);
+        }
+
+        [Fact]
+        public void Test_GetGuestById_Mock()
+        {
+            // ARRANGE
+            DateTime expectedLastPlace = DateTime.Now;
+            DateTime expectedCreatedAt = DateTime.Now;
+            DateTime expectedUpdatedAt = DateTime.Now;
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetGuestById(10)).Returns(new Guest(10, expectedLastPlace, "123. 0.0.0.3", expectedCreatedAt, expectedUpdatedAt));
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            Guest? guest = stp.GetGuestById(10);
+            int actualId = guest.Id;
+            DateTime? actualLasPlace = guest.LastPlace;
+            string actualIpAdress = guest.IpAddress;
+            DateTime? actualCreatedAt = guest.CreatedAt;
+            DateTime? actualUpdatedAt = guest.UpdatedAt;
+
+            // ASSERT
+            Assert.Equal(10, actualId);
+            Assert.Equal(expectedLastPlace, actualLasPlace);
+            Assert.Equal("123. 0.0.0.3", actualIpAdress);
+            Assert.Equal(expectedCreatedAt, actualCreatedAt);
+            Assert.Equal(expectedUpdatedAt, actualUpdatedAt);
+        }
+
+        [Fact]
+        public void Test_CreateGuestbyIp_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.CreateGuestbyIp(null)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.CreateGuestbyIp(null);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_CanGuestColorChange_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.CanGuestColorChange(11)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.CanGuestColorChange(11);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_UpdateGuestById_Mock()
+        {
+            // ARRANGE
+            Guest changes = new Guest();
+            changes.IpAddress = "234.0.0.0.1";
+            changes.LastPlace = DateTime.Now;
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.UpdateGuestById(changes, 12)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.UpdateGuestById(changes, 12);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_DeleteGuestById_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.DeleteGuestById(10)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.DeleteGuestById(10);
+
+            // ASSERT
+            Assert.True(actual);
+        }
 
         #endregion
     }

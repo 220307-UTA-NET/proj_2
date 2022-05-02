@@ -35,7 +35,32 @@ namespace stpAPP.API
         #region   // Pixel Methods
         public List<Pixel> GetAllPixels() { return _repo.GetAllPixels(); }
 
+        public Pixel? GetPixelById(int id) { return _repo.GetPixelById(id); }
+
+        public bool ChangePixelColorByUser(int Pid, int Uid, string hexcolor) { return _repo.ChangePixelColorByUser(Pid, Uid, hexcolor); } 
+
+        public bool ChangePixelColorByGuest(int Pid, int Gid, string hexcolor) { return _repo.ChangePixelColorByGuest(Pid, Gid, hexcolor); }   
+        
+        public bool InsertPixel(Pixel pixel) { return _repo.InsertPixel(pixel); }
+        public bool DeletePixelById(int id) { return _repo.DeletePixelById(id); }
+        #endregion
+
+
+        #region   //   Guest Methods
+
+        public List<Guest> GetAllGuests() { return _repo.GetAllGuests(); }
+
+        public Guest? GetGuestById(int id) { return _repo.GetGuestById(id); }
+
+        public bool CreateGuestbyIp(string ip) { return _repo.CreateGuestbyIp(ip); }
+
+        public bool CanGuestColorChange(int id) { return _repo.CanGuestColorChange(id);}
+
+        public bool UpdateGuestById(Guest changes, int id) { return _repo.UpdateGuestById(changes, id); }
+
+        public bool DeleteGuestById(int id) { return _repo.DeleteGuestById(id); }
 
         #endregion
+
     }
 }
