@@ -88,12 +88,14 @@ namespace stpAPP.API.Controllers
             }
         }
 
-        [HttpPut("guest/{Pid}/{Uid}/{hex}")]
+        [HttpPut("guest/{Pid}/{Gid}/{hex}")]
         public StatusCodeResult PutGuest(int Pid, int Gid, string hex)
         {
+            hex = "#" + hex;
+            Console.WriteLine($"i ran with {Pid}..{Gid}..{hex}");
             try
             {
-                if (!_repository.ChangePixelColorByUser(Pid, Gid, hex))
+                if (!_repository.ChangePixelColorByGuest(Pid, Gid, hex))
                 {
                     return StatusCode(400);
                 }
