@@ -1,4 +1,4 @@
 <div id="GuestContainer">
-    <input type="color">
-    <input id="submitChange" type="submit" value="✓" (click)="createGuest(loadIp())">
+    <input id="colorinput" type="color" #colorinput>
+    <input id="submitChange" type="submit" value="✓" (click)="createGuest(colorinput.value)">
 </div>

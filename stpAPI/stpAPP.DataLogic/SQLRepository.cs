@@ -136,7 +136,7 @@ namespace stpAPP.DataLogic
         {
             Pixel? pixel = GetPixelById(Pid);
             // check if pixel object to be changed is not null
-            // check if guest's 10 minute restriction has passed
+            // check if guest's 2 minute restriction has passed
             if (pixel != null && CanGuestColorChange(Gid))
             {
                 pixel.Color = hexcolor;
@@ -202,7 +202,7 @@ namespace stpAPP.DataLogic
                 }
                 else
                 {
-                    if (RetrievedGuest.LastPlace.Value.AddMinutes(10) >= DateTime.Now)
+                    if (RetrievedGuest.LastPlace.Value.AddMinutes(2) <= DateTime.Now)
                     {
                         RetrievedGuest.LastPlace = DateTime.Now;
                         _context.SaveChanges();
