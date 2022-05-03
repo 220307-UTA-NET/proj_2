@@ -49,18 +49,34 @@ namespace stpAPP.API.Controllers
                 return StatusCode(500);
             }
         }
+        // GET api/<GuestController>/ipaddress/127.9.95.00
+        [HttpGet("ipaddress/{ipAddress}")]
+        public ActionResult<Guest?> GetGuestByIp(string ipAddress)
+        {
+            try
+            {
+                return _repository.GetGuestByIp(ipAddress);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"error in getting guest with ip: {ipAddress}");
+                return StatusCode(500);
+            }
+        }
+
 
         // POST api/<GuestController>
-        [HttpPost]
-        public StatusCodeResult Post([FromBody] string ip)
+        [HttpPost("ipaddress/{ip}")]
+        public StatusCodeResult Post(string ip)
         {
+            Console.WriteLine(ip);
             try
             {
                 if(_repository.CreateGuestbyIp(ip))
                 {
                     return StatusCode(200);
                 }
-                return StatusCode(400);
+                return StatusCode(200);
             }
             catch (Exception ex)
             {

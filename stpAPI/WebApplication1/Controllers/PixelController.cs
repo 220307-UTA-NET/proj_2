@@ -70,7 +70,7 @@ namespace stpAPP.API.Controllers
         }
 
         // PUT api/<PixelController>/1/3/#FFFFFF
-        [HttpPut("{Pid}/{Uid}/{hex}")]
+        [HttpPut("user/{Pid}/{Uid}/{hex}")]
         public StatusCodeResult PutUser(int Pid, int Uid, string hex)
         {
             try
@@ -88,7 +88,7 @@ namespace stpAPP.API.Controllers
             }
         }
 
-        [HttpPut("{Pid}/{Uid}/{hex}")]
+        [HttpPut("guest/{Pid}/{Uid}/{hex}")]
         public StatusCodeResult PutGuest(int Pid, int Gid, string hex)
         {
             try

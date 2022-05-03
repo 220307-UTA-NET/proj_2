@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { PixelComponent } from './pixel/pixel.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { GuestComponent } from './guest/guest.component';
 
 
 
@@ -13,7 +14,8 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    PixelComponent
+    PixelComponent,
+    GuestComponent
   ],
   imports: [
     BrowserModule,
