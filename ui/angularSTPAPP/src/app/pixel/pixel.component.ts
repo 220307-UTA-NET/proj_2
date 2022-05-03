@@ -5,9 +5,9 @@ import { SharedService } from '../shared/shared.service';
 export class Pixel {
   constructor(
     public id: number,
-    public Color: string,
-    public created_at: string,
-    public updated_at: string,
+    public Color: any,
+    public created_at: any,
+    public updated_at: any,
     public updatedBy: any
   ) 
   {}
@@ -20,7 +20,7 @@ export class Pixel {
 })
 export class PixelComponent implements OnInit {
   public pixels: Array<any> = [];
-  public Selection: Pixel = new Pixel(0, "none", "none", "none", "none");
+  public Selection: Pixel = new Pixel(0, 0, 0, 0, 0);
 
   constructor(
     private httpClient: HttpClient, private shared:SharedService
