@@ -7,8 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = stpAPP.BusinessLogic
-<<<<<<< HEAD
 build_property.ProjectDir = C:\revature\proj_2\stpAPI\stpApp.BusinessLogic\
-=======
-build_property.ProjectDir = c:\Users\root\Desktop\Proj_2\proj_2\stpAPI\stpApp.BusinessLogic\
->>>>>>> db6c5dde17df8e58364d3e1c619aea6ab1e65016

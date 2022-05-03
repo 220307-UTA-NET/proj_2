@@ -62,5 +62,19 @@ namespace stpAPP.API
 
         #endregion
 
+
+        #region  //  Message Methods
+        public List<Message> GetAllMessages() { return _repo.GetAllMessages(); }
+
+        public Message? GetMessagebyId(int id) { return _repo.GetMessagebyId(id); }
+
+        public bool InsertMessage(Message message) { return _repo.InsertMessage(message); }
+
+        public bool UpdateMessage(Message message) { return _repo.UpdateMessage(message); }
+
+        public bool DeleteMessagebyId(int id) { return _repo.DeleteMessagebyId(id); }
+
+        #endregion
+
     }
 }

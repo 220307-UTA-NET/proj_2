@@ -237,23 +237,6 @@ namespace stpAPP.UnitTest
             Assert.True(actual);
         }
 
-
-        //[Fact]
-        //public void Test_UpdateOneUserAcc_Mock()
-        //{
-        //    // ARRANGE
-        //    UserAcc userAcc = new UserAcc();
-        //    string input = "JohnW";
-        //    Mock<IRepository> mockRepo = new();
-        //    mockRepo.Setup(x => x.UpdateOneUser(userAcc, input)).Returns();
-        //    STP stp = new STP(mockRepo.Object);
-
-        //    // ACT
-        //    stp.UpdateUser(userAcc, input);
-
-        //    // ASSERT
-        //}
-
         [Fact]
         public void Test_InsertOneUser_Mock()
         {
@@ -568,6 +551,128 @@ namespace stpAPP.UnitTest
 
             // ASSERT
             Assert.True(actual);
+        }
+
+        #endregion
+
+
+        #region  //  Mock Testing Message Methods
+        [Fact]
+        public void Test_GetAllMessages_Mock()
+        {
+            // ARRANGE
+            List<Message> messageList = new List<Message>();
+            messageList.Add(new Message(5, "message1", 43, DateTime.Now, DateTime.Now));
+            messageList.Add(new Message(6, "message2", 43, DateTime.Now, DateTime.Now));
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetAllMessages()).Returns(messageList);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            List<Message> list = stp.GetAllMessages();
+
+            // ASSERT
+            //Check for collection is not empty
+            Assert.NotEmpty(list);
+
+            //Check for collection count
+            Assert.Equal(2, list.Count);
+
+            //Check for collection contain some specific values
+            Assert.Contains(messageList[0], list);
+            Assert.Contains(messageList[1], list);
+
+            //Check if list object contains a value
+            int actualId1 = list[0].Id;
+            int actualId2 = list[1].Id;
+            string actualmsgContent1 = list[0].messageContents;
+            string actualmsgContent2 = list[1].messageContents;
+            
+            Assert.Equal(5, actualId1);
+            Assert.Equal(6, actualId2);
+            Assert.Equal(list[0].UserId, list[1].UserId);
+            Assert.Equal("message1", actualmsgContent1);
+            Assert.Equal("message2", actualmsgContent2);
+        }
+
+        [Fact]
+        public void Test_GetMessagebyId_Mock()
+        {
+            // ARRANGE
+            DateTime expectedUpdatedAt = DateTime.Now;
+            DateTime expectedCreatedAt = DateTime.Now;
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetMessagebyId(6)).Returns(new Message(6, "message2", 43, expectedCreatedAt, expectedUpdatedAt));
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            Message? message = stp.GetMessagebyId(6);
+            int actualId = message.Id;
+            string actualMsgContents = message.messageContents;
+            int actualUserId = message.UserId;
+            DateTime? actualCreatedAt = message.CreatedAt;
+            DateTime? actualUpdatedAt = message.UpdatedAt;
+
+            // ASSERT
+            Assert.Equal(6, actualId);
+            Assert.Equal("message2", actualMsgContents);
+            Assert.Equal(43, actualUserId);
+            Assert.Equal(expectedCreatedAt, actualCreatedAt);
+            Assert.Equal(expectedUpdatedAt, actualUpdatedAt);
+        }
+
+        [Fact]
+        public void Test_InsertMessage_Mock()
+        {
+            // ARRANGE
+            Message message = new Message(7, "message3", 43, DateTime.Now, DateTime.Now);
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.InsertMessage(message)).Returns(true);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.InsertMessage(message);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_UpdateMessage_Mock()
+        {
+            // ARRANGE
+            DateTime expectedUpdatedAt = DateTime.Now;
+            DateTime expectedCreatedAt = DateTime.Now;
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.GetMessagebyId(6)).Returns(new Message(6, "message2", 43, expectedCreatedAt, expectedUpdatedAt));
+            STP stp = new STP(mockRepo.Object);
+
+            Message? changes = stp.GetMessagebyId(6);
+
+            Mock<IRepository> mockRepo2 = new();
+            mockRepo2.Setup(x => x.UpdateMessage(changes)).Returns(true);
+            STP stp2 = new STP(mockRepo2.Object);
+
+            // ACT
+            bool actual = stp2.UpdateMessage(changes);
+
+            // ASSERT
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void Test_DeleteMessagebyId_Mock()
+        {
+            // ARRANGE
+            Mock<IRepository> mockRepo = new();
+            mockRepo.Setup(x => x.DeleteMessagebyId(55)).Returns(false);
+            STP stp = new STP(mockRepo.Object);
+
+            // ACT
+            bool actual = stp.DeleteMessagebyId(55);
+
+            // ASSERT
+            Assert.False(actual);
         }
 
         #endregion
