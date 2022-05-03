@@ -25,6 +25,18 @@
     font-size: x-large;
 }
 
+#TimerContainer {
+    margin: 0 auto;
+    width: 250px;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
 input[type="color"] {
     width: 100px;
     height: 50px;

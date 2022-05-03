@@ -1,7 +1,7 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { HttpClient, JsonpClientBackend, HttpHeaders} from '@angular/common/http';
 import { SharedService } from '../shared/shared.service';
-import { lastValueFrom, map, Observable } from 'rxjs';
+import { last, lastValueFrom, map, Observable } from 'rxjs';
 
 const headers= new HttpHeaders()
   .set('content-type', 'application/json')
@@ -39,7 +39,8 @@ export class GuestComponent implements OnInit {
   guestIp : string = '';
   currentGuest : Guest = new Guest(0, "", "", "", "");
   currentPixel : Pixel = new Pixel(0, "", "", "", "")
-  stopgap$ : any;
+  lastPlace : number;
+
 
   constructor(
     private httpClient: HttpClient, private shared:SharedService
@@ -49,26 +50,24 @@ export class GuestComponent implements OnInit {
     this.loadIp();
     setTimeout(() => {this.getGuest(this.guestIp);}, 99);
     setTimeout(() => {console.log(this.currentGuest);}, 6000);
-    
+    this.setTimer();
   }
-
-  /*
-  .subscribe(
-    response => {
-    console.log(response);
-    for (let index = 0; index < response.length; index++) {
-      this.pixels.push(new Pixel(response[index].id, response[index].color, response[index].createdat, response[index].updatedat, response[index].updatedby));
-    }
-  })
-*/
 
   async createGuest(colorinput : string)
   {
+    if(this.setTimer())
+    {
     colorinput = colorinput.substring(1);
     this.httpClient.post<any>(`https://localhost:7161/api/guest/ipaddress/${this.currentGuest.ipAddress}`, (this.currentGuest.ipAddress)).subscribe();
     setTimeout(() => {console.log(this.currentGuest);}, 99);
+    console.log("last place was ");
     console.log("Colorinput, guestid, and selectedpixelid parsed: " + colorinput + " " + this.currentGuest.id + " " + this.shared.PixelSelection.id)
     this.changePixelGuest(this.shared.PixelSelection.id, this.currentGuest.id, colorinput)
+    }
+    else
+    {
+
+    }
   }
 
   changePixelGuest(Pid:number, Gid:number, hex:string) {
@@ -81,6 +80,40 @@ export class GuestComponent implements OnInit {
       this.currentGuest = response;
     })
   }
+
+ setTimer(){
+   this.lastPlace = Date.parse(this.currentGuest.lastPlace.toString());
+   if(Date.now() < this.lastPlace + 120000)
+   {
+
+    return false;
+   }
+   else
+   {
+    document.getElementById("TimerNumber").textContent = "0:00";
+    return true;
+   }
+ }
+
+
+intervalTimer : any = setInterval(() => {
+if(this.currentGuest.id != 0)
+{
+  this.lastPlace = Date.parse(this.currentGuest.lastPlace.toString());
+  document.getElementById("TimerNumber").textContent = this.millisToMinutesAndSeconds((Date.now() - this.lastPlace));
+}
+if(document.getElementById("TimerNumber").textContent == "0:00")
+  {
+    clearInterval(this.intervalTimer);
+  }
+}, 1000 );
+
+ millisToMinutesAndSeconds(millis:any) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (Number(seconds) < 10 ? '0' : '') + Number(seconds);
+}
+
 
   async loadIp() : Promise<string>
   {
