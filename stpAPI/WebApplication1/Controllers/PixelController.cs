@@ -92,7 +92,6 @@ namespace stpAPP.API.Controllers
         public StatusCodeResult PutGuest(int Pid, int Gid, string hex)
         {
             hex = "#" + hex;
-            Console.WriteLine($"i ran with {Pid}..{Gid}..{hex}");
             try
             {
                 if (!_repository.ChangePixelColorByGuest(Pid, Gid, hex))

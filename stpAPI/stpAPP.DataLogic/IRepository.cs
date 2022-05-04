@@ -79,6 +79,7 @@ namespace stpAPP.DataLogic
             </summary>
          */
         bool CanUserColorChange(int id);
+        UserAcc? Login(string username, string password);
         #endregion
         #region // Pixel Methods
         /* 

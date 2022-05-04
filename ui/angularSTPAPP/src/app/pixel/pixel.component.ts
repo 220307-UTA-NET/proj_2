@@ -34,12 +34,13 @@ export class PixelComponent implements OnInit {
         this.pixels.push(new Pixel(response[index].id, response[index].color, response[index].createdat, response[index].updatedat, response[index].updatedby));
       }
     });
-
   }
 
 // move to user component when ready
   changePixelUser(Pid:number, Uid:number, hex:string) {
-    this.httpClient.put<void>(`https://localhost:7161/api/pixel/${Pid}/${Uid}/${hex}`, Pid)
+    this.httpClient.put<void>(`https://localhost:7161/api/pixel/${Pid}/${Uid}/${hex}`, Pid).subscribe();
+    setTimeout(window.location.reload, 1000);
+    location.reload();
   }
 
   PixelSelection(selectedElement:any)
@@ -47,13 +48,6 @@ export class PixelComponent implements OnInit {
     this.Selection = selectedElement;
     this.shared.setSelection(this.Selection);
     console.log(this.Selection);
-    /*
-    const pixelElements = document.querySelectorAll(".pixel");
-
-    pixelElements.forEach(item => {
-      item.setAttribute("class", "pixel");
-    })
-    */
   }
 
 
