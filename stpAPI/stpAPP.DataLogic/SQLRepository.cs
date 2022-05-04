@@ -34,6 +34,18 @@ namespace stpAPP.DataLogic
                 return false;
             }
         }
+        public UserAcc? Login(string username, string password)
+        {
+            UserAcc? user = _context.UserAccs.FirstOrDefault(u => u.Username == username && u.Password == password);
+            if (user != null)
+            {
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public void UpdateOneUser(UserAcc changes, string input)
         {
             int intTest;
@@ -202,7 +214,7 @@ namespace stpAPP.DataLogic
                 }
                 else
                 {
-                    if (RetrievedGuest.LastPlace.Value.AddMinutes(2) <= DateTime.Now)
+                    if (RetrievedGuest.LastPlace.Value.AddSeconds(5) <= DateTime.Now)
                     {
                         RetrievedGuest.LastPlace = DateTime.Now;
                         _context.SaveChanges();

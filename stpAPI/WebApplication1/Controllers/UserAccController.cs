@@ -58,6 +58,27 @@ namespace stpAPP.API.Controllers
             return user;
         }
 
+        [HttpGet("/username/{username}/{password}")]
+        public ActionResult<UserAcc> Login(string username, string password)
+        {
+            UserAcc? user;
+            try
+            {
+                user = _repository.Login(username, password);
+                if (user == null)
+                {
+                    _logger.LogWarning($@"User with given username: {username}... does not exist");
+                    return StatusCode(500);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retrieving User with username: {username}");
+                return StatusCode(500);
+            }
+            return user;
+        }
+
         // POST api/<UserAccController>
         [HttpPost]
         public StatusCodeResult Post([FromBody] UserAcc user)

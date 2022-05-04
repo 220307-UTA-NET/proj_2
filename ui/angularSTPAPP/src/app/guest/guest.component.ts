@@ -1,7 +1,8 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { HttpClient, JsonpClientBackend, HttpHeaders} from '@angular/common/http';
 import { SharedService } from '../shared/shared.service';
-import { last, lastValueFrom, map, Observable } from 'rxjs';
+import { last, lastValueFrom, map, Observable, catchError } from 'rxjs';
+import { Form, FormBuilder } from '@angular/forms';
 
 const headers= new HttpHeaders()
   .set('content-type', 'application/json')
@@ -29,6 +30,18 @@ export class Pixel {
   {}
 }
 
+export class User {
+  constructor(
+    public id: any,
+    public username: any,
+    public password: any,
+    public lastPlace: any,
+    public created_at: any,
+    public updated_at: any,
+  )
+  {}
+}
+
 
 @Component({
   selector: 'app-guest',
@@ -37,19 +50,18 @@ export class Pixel {
 })
 export class GuestComponent implements OnInit {
   guestIp : string = '';
-  currentGuest : Guest = new Guest(0, "", "", "", "");
+  currentGuest : Guest = new Guest(0, "", "none", "", "");
   currentPixel : Pixel = new Pixel(0, "", "", "", "")
   lastPlace : number;
 
 
   constructor(
-    private httpClient: HttpClient, private shared:SharedService
+    private httpClient: HttpClient, private shared:SharedService, private formBuilder : FormBuilder
   ) { }
 
   async ngOnInit() : Promise<void> {
     this.loadIp();
     setTimeout(() => {this.getGuest(this.guestIp);}, 99);
-    setTimeout(() => {console.log(this.currentGuest);}, 6000);
     this.setTimer();
   }
 
@@ -72,6 +84,9 @@ export class GuestComponent implements OnInit {
 
   changePixelGuest(Pid:number, Gid:number, hex:string) {
     this.httpClient.put<void>(`https://localhost:7161/api/Pixel/guest/${Pid}/${Gid}/${hex}`, 0).subscribe()
+    setTimeout(() => {  
+    window.location.reload(); 
+  }, 1000);  
   }
 
   async getGuest(ip:any) : Promise<void>
@@ -83,9 +98,8 @@ export class GuestComponent implements OnInit {
 
  setTimer(){
    this.lastPlace = Date.parse(this.currentGuest.lastPlace.toString());
-   if(Date.now() < this.lastPlace + 120000)
+   if(Date.now() < this.lastPlace + 5000)
    {
-
     return false;
    }
    else
@@ -108,12 +122,22 @@ if(document.getElementById("TimerNumber").textContent == "0:00")
   }
 }, 1000 );
 
+intervalIP : any = setInterval(() => {
+  if(this.currentGuest.ipAddress == "none")
+  {
+    this.loadIp();
+  }
+  if(document.getElementById("TimerNumber").textContent == "0:00")
+    {
+      clearInterval(this.intervalIP);
+    }
+  }, 1000 );
+
  millisToMinutesAndSeconds(millis:any) {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (Number(seconds) < 10 ? '0' : '') + Number(seconds);
 }
-
 
   async loadIp() : Promise<string>
   {
@@ -124,4 +148,32 @@ if(document.getElementById("TimerNumber").textContent == "0:00")
     );
     return this.guestIp;
   }
+
+
+  onUserRegister(data:any)
+  {
+    this.httpClient.post(`https://localhost:7161/api/UserAcc/`, data).subscribe();
+    document.getElementById('registerformShown').id = "registerformHidden";
+    document.getElementById('loginformShown').id = "loginformHidden";
+  }
+  onClickUserShowRegister()
+  {
+    document.getElementById('registerformHidden').id = "registerformShown";
+    document.getElementById('loginformShown').id = "loginformHidden";
+  }
+  onUserLogin(data:any)
+  {
+    this.httpClient.get<User>(`https://localhost:7161/username/${data.Username}/${data.Password}`).subscribe((response) => {
+      this.shared.UserSelection = response;
+    });
+    document.getElementById('loginformShown').id = 'loginformHidden';
+    document.getElementById('registerformShown').id = 'registerformHidden';
+  }
+  onClickUserShownLogin()
+  {
+    document.getElementById('loginformHidden').id = "loginformShown";
+    document.getElementById('registerformShown').id = "registerformHidden";
+  }
+
+
 }

@@ -11,11 +11,24 @@ export class Pixel {
   {}
 }
 
+export class User {
+  constructor(
+    public id: any,
+    public username: any,
+    public password: any,
+    public lastPlace: any,
+    public created_at: any,
+    public updated_at: any,
+  )
+  {}
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
   public PixelSelection: Pixel = new Pixel(0, "none", "none", "none", "none");
+  public UserSelection: User = new User(0, "none", "none", "none", "none", "none");
   constructor() { }
   setSelection(data:Pixel){
     this.PixelSelection = data;
@@ -23,5 +36,13 @@ export class SharedService {
   getSelection()
   {
     return this.PixelSelection;
+  }
+  setUser(data:User)
+  {
+    this.UserSelection = data;
+  }
+  getUser()
+  {
+    return this.UserSelection;
   }
 }

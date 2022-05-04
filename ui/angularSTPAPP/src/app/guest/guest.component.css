@@ -16,13 +16,51 @@
     align-items: center;
 }
 
-#GuestContainer
-
 #submitChange {
     margin-left: 10px;
     width: 100px;
     height: 50px;
     font-size: x-large;
+}
+
+#registerformShown {
+    display: flex;
+    width: 250px;
+    height: 250px;
+    background-color: #dae0e6;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+#registerformHidden {
+    display: none;
+}
+
+#loginformShown {
+    display: flex;
+    width: 250px;
+    height: 250px;
+    background-color: red;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+button {
+    width: 250px;
+    height: 250px;
+    background-color: red;
+}
+
+#loginformHidden {
+    display: none;
+}
+
+.hide {
+    display: none;
 }
 
 #TimerContainer {
@@ -43,3 +81,4 @@ input[type="color"] {
     margin-right: -10px;
     margin-bottom: 10px;
 }
+

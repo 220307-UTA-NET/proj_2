@@ -6,6 +6,7 @@ import { PixelComponent } from './pixel/pixel.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { GuestComponent } from './guest/guest.component';
+import { UserComponent } from './user/user.component';
 
 
 
@@ -15,7 +16,8 @@ import { GuestComponent } from './guest/guest.component';
   declarations: [
     AppComponent,
     PixelComponent,
-    GuestComponent
+    GuestComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
