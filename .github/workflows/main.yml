@@ -41,4 +41,4 @@ jobs:
         
         
      - name: Build with dotnet
-       run: dotnet build ./stpAPI/stpAPI/ --configuration Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+       run: dotnet build ./stpAPI/stpAPI.sln/ --configuration Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
