@@ -35,6 +35,8 @@ jobs:
             
       
       - name: check folders
-        run: ls ./ -a 
+        run: ls ./ -a
         
         
+     - name: Build with dotnet
+       run: dotnet build ./stpAPI/stpAPI/ --configuration Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
