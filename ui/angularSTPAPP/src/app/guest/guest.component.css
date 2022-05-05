@@ -6,27 +6,31 @@
 
 #GuestContainer {
     margin: 0 auto;
-    background-color: #dae0e6;
-    width: 300px;
-    height: 250px;
+    background-color: #ffffff;
+    width: 105px;
+    height: 50px;
     margin-top: 15px;
-    display: flex;
-    flex-direction: column;
+    
     justify-content: center;
     align-items: center;
 }
-
+#colorinput{
+    float:left;
+    width: 50px;
+} 
 #submitChange {
     margin-left: 10px;
-    width: 100px;
+    width: 50px;
     height: 50px;
     font-size: x-large;
+    
+    float: right;
 }
 
 #registerformShown {
     display: flex;
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 150px;
     background-color: #dae0e6;
     flex-direction: column;
     justify-content: center;
@@ -40,21 +44,31 @@
 
 #loginformShown {
     display: flex;
-    width: 250px;
-    height: 250px;
-    background-color: red;
+    width: 300px;
+    height: 150px;
+    background-color: #dae0e6;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
 }
-
-button {
-    width: 250px;
-    height: 250px;
-    background-color: red;
+#buttons{
+    margin-left: 45%;
+    margin-right: auto;
 }
-
+button {
+    width: 100px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(95, 255, 135);
+    
+}
+button:hover{
+    background-color: rgb(46, 250, 63);
+}
+button:active{
+    background-color:green;
+}
 #loginformHidden {
     display: none;
 }
@@ -65,8 +79,8 @@ button {
 
 #TimerContainer {
     margin: 0 auto;
-    width: 250px;
-    height: 50px;
+    width: 300px;
+    height: 100px;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -74,7 +88,9 @@ button {
     align-items: center;
     margin-top: 25px;
 }
-
+#TimerLabel{
+    float:left;
+}
 input[type="color"] {
     width: 100px;
     height: 50px;

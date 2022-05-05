@@ -4,13 +4,15 @@
 }
 
 #pixel-container {
-    width: 60vw;
-    height: 60vh;
-    background-color: #dae0e6;
+    width: 700px;
+    height: 600px;
+    background-color: #ffffff;
+    border: 1px solid black;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    justify-content: space-around;
+    grid-template-columns: repeat(7, 100px);
+    grid-template-rows: repeat(6, 100px);
+    
 }
 
 .pixel-row
@@ -19,14 +21,17 @@
 }
 
 .pixel {
-    width: 100px;
+    width:100px;
     height: 100px;
-    border: 1px solid black;
 }
+.pixel:hover{
+    opacity: 50%;
+}
+
 
 .pixel-selection {
     width: 100px;
     height: 100px;
-    border: 1px dashed black;
-    outline: 3px dashed black;
+    box-shadow: inset 0px 0px 0px 5px rgb(88, 88, 88);
+    
 }
