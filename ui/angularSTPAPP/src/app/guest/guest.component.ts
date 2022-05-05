@@ -127,11 +127,12 @@ intervalIP : any = setInterval(() => {
   {
     this.loadIp();
   }
-  if(parseInt(document.getElementById("TimerNumber").textContent.substring(document.getElementById("TimerNumber").textContent.length-1)) >= 5 || parseInt(document.getElementById("TimerNumber").textContent.substring(document.getElementById("TimerNumber").textContent.length-2)) >= 1 || parseInt(document.getElementById("TimerNumber").textContent.substring(0, document.getElementById("TimerNumber").textContent.indexOf(":"))) >= 0)
+  console.log(parseInt(this.millisToMinutesAndSecondsBACK((Date.now() - this.lastPlace))));
+  if(parseInt(this.millisToMinutesAndSecondsBACK((Date.now() - this.lastPlace))) >= 5)
     {
+      document.getElementById("TimerNumber").textContent = "you can place now"
       clearInterval(this.intervalIP);
       clearInterval(this.intervalTimer);
-      document.getElementById("TimerNumber").textContent = "You may change a pixel color";
     }
   }, 1000 );
 
@@ -139,6 +140,12 @@ intervalIP : any = setInterval(() => {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (Number(seconds) < 10 ? '0' : '') + Number(seconds);
+}
+
+millisToMinutesAndSecondsBACK(millis:any) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + (Number(seconds) < 10 ? '0' : '') + Number(seconds);
 }
 
   async loadIp() : Promise<string>
