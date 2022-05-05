@@ -127,9 +127,11 @@ intervalIP : any = setInterval(() => {
   {
     this.loadIp();
   }
-  if(document.getElementById("TimerNumber").textContent == "0:00")
+  if(parseInt(document.getElementById("TimerNumber").textContent.substring(document.getElementById("TimerNumber").textContent.length-1)) >= 5 || parseInt(document.getElementById("TimerNumber").textContent.substring(document.getElementById("TimerNumber").textContent.length-2)) >= 1 || parseInt(document.getElementById("TimerNumber").textContent.substring(0, document.getElementById("TimerNumber").textContent.indexOf(":"))) >= 0)
     {
       clearInterval(this.intervalIP);
+      clearInterval(this.intervalTimer);
+      document.getElementById("TimerNumber").textContent = "You may change a pixel color";
     }
   }, 1000 );
 
