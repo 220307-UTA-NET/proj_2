@@ -4,6 +4,8 @@ name: CI
 
 env:
    DOTNET_VERSION: '6.0.x'  # set this to the .net core version to use 
+   AZURE_WEBAPP_PACKAGE_PATH: '/BuildOutput'
+
 
 # Controls when the workflow will run
 on:
